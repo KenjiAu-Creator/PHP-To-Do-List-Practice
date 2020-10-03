@@ -1,0 +1,15 @@
+#active-to-do {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#active-to-do > h2 {
+  width: 100%;
+}
+.check {
+  width: 10%;
+}
+.to-do-label {
+  display: inline-block;
+  width: 80%;
+}
