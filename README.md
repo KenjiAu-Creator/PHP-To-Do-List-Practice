@@ -27,3 +27,10 @@ Trello link: https://trello.com/b/QBXGgEi8/php-to-do
   ## Citations
   Special thanks to Lindsey Graham for providing advice on setting up active / completed
   items list as well as how to clean the input.
+
+  Reason: I was confused on how to implement a list for the completed items. Initially a checkbox
+  form was considered just like how I created a to-do list in JavaScript. The lack of form submission
+  on change however caused this implementation to be clunky user-wise. I reached out to Lindsey for
+  help.
+  
+  Source: https://gist.github.com/ldgraham92/f3144d7c8f1dbe337bf0d63f10f40bdb
