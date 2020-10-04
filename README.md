@@ -23,3 +23,7 @@ Trello link: https://trello.com/b/QBXGgEi8/php-to-do
   * Capture form submission details using $_POST
   * Store data in $_SESSION
   * Retrieve data from $_SESSIO
+
+  ## Citations
+  Special thanks to Lindsey Graham for providing advice on setting up active / completed
+  items list as well as how to clean the input.

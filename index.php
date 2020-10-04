@@ -13,21 +13,29 @@ if (!empty($_POST["new-to-do"])) {            // Make sure that the request is n
 /*=================================*/
 /*      Active To Do's List        */
 /*=================================*/
-if (!empty($_POST["new-complete"])
-    || $_POST["new-complete"] === "0")
-  {                                             // Make sure that the button request is not empty.
-    if (!$_SESSION["completed-to-dos"]) {       // If the to-do-list isn't initialized
-      $completeToDo = [];
-    }
-    else {
-      $completeToDo = $_SESSION["completed-to-dos"];  // If the completed list exists access it.
-    }
+if (!empty($_POST["new-complete"])        // Make sure that the button request is not empty.
+    || $_POST["new-complete"] === "0")    // the empy function considers "0" / 0 as empty.
+{                                             
+  if (!$_SESSION["completed-to-dos"]) {   // If the to-do-list isn't initialized.
+    $completeToDo = [];
+  }
+  else {
+    $completeToDo = $_SESSION["completed-to-dos"];  // If the completed list exists access it.
+  }
 
   $completedItem = $_SESSION["to-do-list"][$_POST["new-complete"]]; // Grab the completed item.
   // Thank you to Lindsey Graham for showing the unset command.
   unset($_SESSION["to-do-list"][$_POST["new-complete"]]);           // Remove the action from the actives list.
   array_push($completeToDo, $completedItem);                        // Add to the completed list.
   $_SESSION["completed-to-dos"] = $completeToDo;                    // Update the completed list.
+}
+
+if (isset($_POST["reset"])) {
+  // $_SESSION["to-do-list"] = [];  // Hard code for resetting session data.
+  // $_SESSION["completed-to-dos"] = [];
+
+  // session_destroy();             // Session destroy will destory the data but keep the existing sesssion.
+  session_unset();                  // Session unset will unset the current session and destroy the data.
 }
 ?>
 
@@ -57,15 +65,19 @@ if (!empty($_POST["new-complete"])
 
     <h2>Completed To-Dos</h2>
     <?php if (isset($_SESSION['completed-to-dos'])) : ?>
-        <?php foreach ($_SESSION['completed-to-dos'] as $toDoItem) : ?>
-          <p class="complete"><?php echo $toDoItem ?></p>
-        <?php endforeach ?>
-      <?php endif ?>
+      <?php foreach ($_SESSION['completed-to-dos'] as $toDoItem) : ?>
+        <p class="complete"><?php echo $toDoItem ?></p>
+      <?php endforeach ?>
+    <?php endif ?>
+
+    <form method="POST" action="index.php">
+      <button id="reset-button" name="reset" value="reset">Reset List</button>
+    </form>
 
     <h2>Debugging</h2>
     <?php var_dump($_SESSION); ?>
     <?php var_dump($_POST); ?>
-    <?php var_dump($completedItem); ?>
+    <?php var_dump($test); ?>
 </body>
 
 </html>
