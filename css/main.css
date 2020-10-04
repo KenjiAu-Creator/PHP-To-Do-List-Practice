@@ -15,8 +15,24 @@
   margin-left: 10px;
 }
 .active-button {
-  width: 15%;
+  width: 10%;
 }
 .complete {
   text-decoration: line-through;
+}
+body {
+  background-image: url("https://images.pexels.com/photos/934062/pexels-photo-934062.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-size: 1200px;
+  background-repeat: no-repeat;
+}
+#notepad {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  min-height: 700px;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 5px 10px 10px 10px;
+  width: 50%;
+  padding: 0px 10px 10px 10px;
 }
