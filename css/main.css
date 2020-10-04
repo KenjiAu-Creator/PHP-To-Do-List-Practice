@@ -6,10 +6,17 @@
 #active-to-do > h2 {
   width: 100%;
 }
-.check {
-  width: 10%;
-}
-.to-do-label {
-  display: inline-block;
+.active-form {
   width: 80%;
+  margin: 10px 0;
+}
+.active-label {
+  width: 85%;
+  margin-left: 10px;
+}
+.active-button {
+  width: 15%;
+}
+.complete {
+  text-decoration: line-through;
 }

@@ -10,20 +10,24 @@ if (!empty($_POST["new-to-do"])) {            // Make sure that the request is n
   array_push($toDoList, $_POST["new-to-do"]); // Add to the to-do-list.
   $_SESSION["to-do-list"] = $toDoList;        // Update the session variable.
 };
+/*=================================*/
+/*      Active To Do's List        */
+/*=================================*/
+if (!empty($_POST["new-complete"])
+    || $_POST["new-complete"] === "0")
+  {                                             // Make sure that the button request is not empty.
+    if (!$_SESSION["completed-to-dos"]) {       // If the to-do-list isn't initialized
+      $completeToDo = [];
+    }
+    else {
+      $completeToDo = $_SESSION["completed-to-dos"];  // If the completed list exists access it.
+    }
 
-// The active To Do's list 
-if (!empty($_POST["new-complete"]) || $_POST["new-complete"] === "0") {  // Make sure that the button request is not empty.
-  if (!$_SESSION["completed-to-dos"]) {       // If the to-do-list isn't initialized
-    $completeToDo = [];
-  }
-  else {
-    $completeToDo = $_SESSION["completed-to-dos"];  // If the completed list exists access it.
-  }
-
-  $completedItem = $_SESSION["to-do-list"][$_POST["new-complete"]];  // Add to the completed list.
-  array_push($completeToDo, $completedItem);
-  
-  $_SESSION["completed-to-dos"] = $completeToDo;  // Update the completed to-dos list.
+  $completedItem = $_SESSION["to-do-list"][$_POST["new-complete"]]; // Grab the completed item.
+  // Thank you to Lindsey Graham for showing the unset command.
+  unset($_SESSION["to-do-list"][$_POST["new-complete"]]);           // Remove the action from the actives list.
+  array_push($completeToDo, $completedItem);                        // Add to the completed list.
+  $_SESSION["completed-to-dos"] = $completeToDo;                    // Update the completed list.
 }
 ?>
 
@@ -44,8 +48,8 @@ if (!empty($_POST["new-complete"]) || $_POST["new-complete"] === "0") {  // Make
         <?php foreach ($_SESSION['to-do-list'] as $key=>$toDoItem) : 
           // Thank you to Lindsey Graham for giving advice to use buttons instead of checkbox input
         ?>
-        <form method="POST" action="index.php">
-          <button name="new-complete" value=<?php echo $key ?>><?php echo $toDoItem ?></button>
+        <form class="active-form" method="POST" action="index.php">
+          <button class="active-button" name="new-complete" value=<?php echo $key ?>>Task Complete</button><span class="active-label"><?php echo $toDoItem ?></span>
         </form>
         <?php endforeach ?>
       <?php endif ?>
@@ -54,7 +58,7 @@ if (!empty($_POST["new-complete"]) || $_POST["new-complete"] === "0") {  // Make
     <h2>Completed To-Dos</h2>
     <?php if (isset($_SESSION['completed-to-dos'])) : ?>
         <?php foreach ($_SESSION['completed-to-dos'] as $toDoItem) : ?>
-          <p><?php echo $toDoItem ?></p>
+          <p class="complete"><?php echo $toDoItem ?></p>
         <?php endforeach ?>
       <?php endif ?>
 
