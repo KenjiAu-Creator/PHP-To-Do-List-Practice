@@ -53,8 +53,8 @@ if (isset($_POST["reset"]))         // If a reset input is sent.
 
 <body>
   <div id="notepad">
-    <h1>PHP To Do List</h1>
-    <h2>Add a To-Do</h1>
+    <h1>What do you want to accomplish?</h1>
+    <h2>Add a Task</h1>
       <form method="POST" action="index.php">
         <label for="new-to-do-item">
           <input type="text" id="new-to-do-item" name="new-to-do" required=true;>
@@ -63,21 +63,21 @@ if (isset($_POST["reset"]))         // If a reset input is sent.
       </form>
 
       <section id="active-to-do">
-        <h2>Active To-Dos</h2>
+        <h2>Active Tasks</h2>
         <?php if (isset($_SESSION['to-do-list'])) : ?>
           <?php foreach ($_SESSION['to-do-list'] as $key => $toDoItem) :
             // Thank you to Lindsey Graham for giving advice to use buttons instead of checkbox input
           ?>
             <form class="active-form" method="POST" action="index.php">
-              <button class="active-button" name="new-complete" value=<?php echo $key ?>>Item Complete</button>
-              <button class="active-button" name="remove-item" value=<?php echo $key ?>>Remove Item</button>
+              <button class="active-button" name="new-complete" value=<?php echo $key ?>><i class="far fa-check-square"></i></button>
+              <button class="active-button" name="remove-item" value=<?php echo $key ?>><i class="far fa-trash-alt"></i></button>
               <span class="active-label"><?php echo $toDoItem ?></span>
             </form>
           <?php endforeach ?>
         <?php endif ?>
       </section>
 
-      <h2>Completed To-Dos</h2>
+      <h2>Completed Tasks</h2>
       <?php if (isset($_SESSION['completed-to-dos'])) : ?>
         <?php foreach ($_SESSION['completed-to-dos'] as $toDoItem) : ?>
           <p class="complete"><?php echo $toDoItem ?></p>
