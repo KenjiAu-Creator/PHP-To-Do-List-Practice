@@ -1,5 +1,6 @@
 <?php
 session_start();                  // Start the session.
+include './includes/Filter.php';
 
 if (!empty($_POST["new-to-do"]))  // Make sure that the request is not empty.
 {
@@ -9,8 +10,15 @@ if (!empty($_POST["new-to-do"]))  // Make sure that the request is not empty.
   } else {
     $toDoList = $_SESSION["to-do-list"];      // If the to-do-list exists, access it.
   }
-  array_push($toDoList, $_POST["new-to-do"]); // Add to the to-do-list.
-  $_SESSION["to-do-list"] = $toDoList;        // Update the session variable.
+  if ( Filter($_POST["new-to-do"]))
+  {
+    array_push($toDoList, $_POST["new-to-do"]); // Add to the to-do-list.
+    $_SESSION["to-do-list"] = $toDoList;        // Update the session variable.
+  }
+  else
+  {
+    echo '<script>alert("Special characters are not allowed in tasks!")</script>';
+  }
 };
 /*=================================*/
 /*      Active To Do's List        */
@@ -33,12 +41,16 @@ if (
   array_push($completeToDo, $completedItem);                        // Add to the completed list.
   $_SESSION["completed-to-dos"] = $completeToDo;                    // Update the completed list.
 }
-
+/*=================================*/
+/*         Remove Button           */
+/*=================================*/
 if (isset($_POST["remove-item"]))                         // If the key for an item to be removed is sent.
 {
   unset($_SESSION["to-do-list"][$_POST["remove-item"]]);  // Remove that index from the To-Do List.
 }
-
+/*=================================*/
+/*         Reset Button            */
+/*=================================*/
 if (isset($_POST["reset"]))         // If a reset input is sent.
 {
   // $_SESSION["to-do-list"] = [];  // Hard code for resetting session data.
